@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
+import { ref, type Ref, computed } from 'vue'
 	
 export const useTaskStore = defineStore('task', () => {
 	const tasks: Ref<Task[]> = ref([
@@ -70,7 +70,7 @@ export const useTaskStore = defineStore('task', () => {
 			if(task.id === id) {
 				task.name = name.value
 				task.status = status.value
-				task?.description = description?.value
+				task.description = description.value
 			}
 		})
 
