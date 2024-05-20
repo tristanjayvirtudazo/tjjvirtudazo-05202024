@@ -19,6 +19,15 @@
 
 <style scoped>
 	.btn__group {
-		
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 20;
+	}
+
+	li {
+		border: solid 1px black;
+		margin: 5px;
+		padding: 5px;
 	}
 </style>
