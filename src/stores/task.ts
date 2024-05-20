@@ -36,8 +36,14 @@ export const useTaskStore = defineStore('task', () => {
 	const name: Ref<string> = ref('')
 	const status: Ref<string> = ref('TO DO')
 	const description: Ref<string | undefined> = ref(undefined)
-	const taskLists: Ref<Task[]> = computed(() => {
-		return tasks.value
+	const todoList: Ref<Task[]> = computed(() => {
+		return tasks.value.filter((task: Task): boolean => task.status === "TO DO")
+	})
+	const inprogList: Ref<Task[]> = computed(() => {
+		return tasks.value.filter((task: Task): boolean => task.status === "IN PROGRESS")
+	})
+	const doneList: Ref<Task[]> = computed(() => {
+		return tasks.value.filter((task: Task): boolean => task.status === "DONE")
 	})
 
 	function addTask(): void {
@@ -53,6 +59,10 @@ export const useTaskStore = defineStore('task', () => {
 				status: status.value,
 			} as Task)
 		}
+
+		name.value = ''
+		status.value = ''
+		description.value = undefined
 	}
 
 	function updateTask(id: string): void {
@@ -63,6 +73,10 @@ export const useTaskStore = defineStore('task', () => {
 				task?.description = description?.value
 			}
 		})
+
+		name.value = ''
+		status.value = ''
+		description.value = undefined
 	}
 
 	function startTask(id: string): void {
@@ -81,5 +95,17 @@ export const useTaskStore = defineStore('task', () => {
 		})
 	}
 
-	return { taskLists, tasks, name, status, description, addTask, updateTask, startTask, markAsDone }
+	return { 
+		todoList, 
+		inprogList, 
+		doneList, 
+		tasks, 
+		name, 
+		status, 
+		description, 
+		addTask, 
+		updateTask, 
+		startTask, 
+		markAsDone
+	}
 })
