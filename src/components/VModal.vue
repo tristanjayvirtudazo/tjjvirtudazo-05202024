@@ -5,10 +5,10 @@
 	const isOpen: Ref<boolean> = ref(false)
 	const taskStore = useTaskStore()
 	const { name, status, description } = storeToRefs(taskStore)
-	const props = defineProps<{ id?: string }>()
+	const props = defineProps<{ task?: Task }>()
 
 	function handleEvents(): void {
-		if(!id) {
+		if(!task) {
 			taskStore.addTask()
 		} else {
 			taskStore.updateTask(id)
@@ -28,15 +28,15 @@
 		<form v-if="isOpen" @submit.prevent="handleAdd">
 			<label>
 				Name
-				<input type="text" maxlength="250" v-model="name">
+				<input type="text" maxlength="250" v-model="name" :value="task?.name">
 			</label>
 			<label>
 				Description
-				<textarea maxlength="1000" placeholder="Write something..." v-model="description"/>
+				<textarea maxlength="1000" placeholder="Write something..." v-model="description" :value="task?.description"/>
 			</label>
 			<label>
 				Status
-				<select v-model="status">
+				<select v-model="status" :value="task?.status">
 					<option selected value="TO DO">TO DO</option>
 					<option value="IN PROGRESS">IN PROGRESS</option>
 					<option value="DONE">DONE</option>
