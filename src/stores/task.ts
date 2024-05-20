@@ -47,20 +47,12 @@ export const useTaskStore = defineStore('task', () => {
 	})
 
 	function addTask(): void {
-		if(name.length <= 250 && description?.value.length <= 1000) {
-			tasks.value.push({
-				id: crypto.randomUUID(),
-				name: name.value,
-				status: status.value,
-				description: description.value 
-			} as Task)
-		} else if(name.length <= 250 && !description.value){
-			tasks.value.push({
-				id: crypto.randomUUID(),
-				name: name.value,
-				status: status.value,
-			} as Task)
-		}
+		tasks.value.push({
+			id: crypto.randomUUID(),
+			name: name.value,
+			status: status.value,
+			description: description.value 
+		} as Task)
 
 		name.value = ''
 		status.value = ''

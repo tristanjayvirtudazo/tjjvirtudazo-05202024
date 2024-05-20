@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-	import { ref, type Ref, storeToRefs } from 'vue'
+	import { ref, type Ref } from 'vue'
+	import { storeToRefs } from 'pinia'
 	import { useTaskStore } from '@/stores/task'
 
 	const isOpen: Ref<boolean> = ref(false)
@@ -8,7 +9,7 @@
 	const props = defineProps<{ task?: Task }>()
 
 	function handleEvents(): void {
-		if(!task) {
+		if(props.task === undefined) {
 			taskStore.addTask()
 		} else {
 			taskStore.updateTask(id)
@@ -16,7 +17,7 @@
 	}
 
 	function handleCancel(): void {
-		isOpen.vaue = false
+		isOpen.value= false
 		props.id = ''
 	}
 
@@ -24,15 +25,16 @@
 </script>
 
 <template>
+	<button @click="isOpen = true">Add</button>
 	<Teleport to="body">
-		<form v-if="isOpen" @submit.prevent="handleAdd">
+		<div v-if="isOpen">
 			<label>
 				Name
-				<input type="text" maxlength="250" v-model="name" :value="task?.name">
+				<input type="text" maxlength="250" v-model="name">
 			</label>
 			<label>
 				Description
-				<textarea maxlength="1000" placeholder="Write something..." v-model="description" :value="task?.description"/>
+				<textarea maxlength="1000" placeholder="Write something..." v-model="description"/>
 			</label>
 			<label>
 				Status
@@ -42,16 +44,17 @@
 					<option value="DONE">DONE</option>
 				</select>
 			</label>
-			<button type="submit">Save</button>
-		</form>
-		<button @click="handleCancel">Cancel</button>
+			<button @click="handleEvents">Save</button>
+			<button @click="handleCancel">Cancel</button>
+		</div>
 	</Teleport>
 </template>
 
 <style scoped>
 	form {
 		width: 500px;
-		border: solix 1px black;
+		box-shadow: 0px 2px 2px;
+		border: solid 1px black;
 		background: white;
 		padding: 10px;
 		position: fixed;
@@ -61,7 +64,7 @@
 		margin-left: -150px;
 	}
 
-	input {
+	input, select, textarea {
 		width: 100%;
 	}
 </style>

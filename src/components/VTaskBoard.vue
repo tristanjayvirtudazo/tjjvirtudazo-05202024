@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 	import VTaskItem from '@/components/VTaskItem.vue'
+	import VModal from '@/components/VModal.vue'
 	const props = defineProps<{ title: string, tasks?: Task[] }>()
 </script>
 
@@ -8,7 +9,11 @@
 		<h2>{{ title }}</h2>
 
 		<ul>
-			<VTaskItem v-for="task in tasks" :task="task" />
+			<VTaskItem v-for="task in tasks" :task="task">
+				<template #modal>
+					<VModal/>
+				</template>
+			</VTaskItem>
 		</ul>
 	</section>
 </template>
