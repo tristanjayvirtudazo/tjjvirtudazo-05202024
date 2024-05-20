@@ -15,6 +15,7 @@
 			<button>Mark as complete</button>
 		</div>
 	</li>
+	<slot name="modal"/>
 </template>
 
 <style scoped>
