@@ -6,9 +6,10 @@
 
 	const props = defineProps<{ title: string, tasks?: Task[] }>()
 	const taskStore = useTaskStore()
-	const { name, status, description } = storeToRefs(taskStore)
+	const { id, name, status, description } = storeToRefs(taskStore)
 
 	function handleEdit(task: Task): void {
+		id.value = task.id
 		name.value = task.name
 		status.value = task.status
 		description.value = task.description
@@ -30,7 +31,7 @@
 				@edit="handleEdit($event)"
 			>
 				<template #modal>
-					<VModal/>
+					<VModal action="edit"/>
 				</template>
 			</VTaskItem>
 		</ul>

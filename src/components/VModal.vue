@@ -3,13 +3,13 @@
 	import { storeToRefs } from 'pinia'
 	import { useTaskStore } from '@/stores/task'
 
-	const isOpen: Ref<boolean> = ref(false)
+	const isOpen: Ref<boolean> = ref(true)
 	const taskStore = useTaskStore()
 	const { id, name, status, description } = storeToRefs(taskStore)
 	const props = defineProps<{ action: string }>()
 
 	function handleEvents(action: string): void {
-		if (action === 'edit') {
+		if (props.action === 'edit') {
 			taskStore.updateTask(id.value)
 		} else {
 			taskStore.addTask()
@@ -38,7 +38,7 @@
 			</label>
 			<label>
 				Status
-				<select v-model="status" :value="task?.status">
+				<select v-model="status">
 					<option selected value="TO DO">TO DO</option>
 					<option value="IN PROGRESS">IN PROGRESS</option>
 					<option value="DONE">DONE</option>
