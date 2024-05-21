@@ -5,6 +5,13 @@
 
 	const props = defineProps<{ title: string, tasks?: Task[] }>()
 	const taskStore = useTaskStore()
+	const { name, status, description } = storeToRefs(taskStore)
+
+	function handleEdit(task: Task): void {
+		name.value = task.name
+		status.value = task.status
+		description.value = task.description
+	}
 
 </script>
 
@@ -19,6 +26,7 @@
 				:key="task.id"
 				@start="taskStore.startTask($event)"
 				@complete="taskStore.markAsDone($event)"
+				@edit="handleEdit($event)"
 			>
 				<template #modal>
 					<VModal/>
