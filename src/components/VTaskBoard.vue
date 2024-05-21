@@ -2,6 +2,7 @@
 	import VTaskItem from '@/components/VTaskItem.vue'
 	import VModal from '@/components/VModal.vue'
 	import { useTaskStore } from '@/stores/task'
+	import { storeToRefs } from 'pinia'
 
 	const props = defineProps<{ title: string, tasks?: Task[] }>()
 	const taskStore = useTaskStore()
