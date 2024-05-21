@@ -33,6 +33,7 @@ export const useTaskStore = defineStore('task', () => {
 		    "status": "IN PROGRESS"
 		  }
 	])
+	const id: Ref<string> = ref('')
 	const name: Ref<string> = ref('')
 	const status: Ref<string> = ref('TO DO')
 	const description: Ref<string | undefined> = ref(undefined)
@@ -67,7 +68,7 @@ export const useTaskStore = defineStore('task', () => {
 				task.description = description.value
 			}
 		})
-
+		id.value = ''
 		name.value = ''
 		status.value = ''
 		description.value = undefined
@@ -94,6 +95,7 @@ export const useTaskStore = defineStore('task', () => {
 		inprogList, 
 		doneList, 
 		tasks, 
+		id,
 		name, 
 		status, 
 		description, 

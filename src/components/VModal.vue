@@ -6,7 +6,7 @@
 	const isOpen: Ref<boolean> = ref(false)
 	const taskStore = useTaskStore()
 	const { id, name, status, description } = storeToRefs(taskStore)
-	const props = defineProps<{ task?: Task, action: string }>()
+	const props = defineProps<{ action: string }>()
 
 	function handleEvents(action: string): void {
 		if (action === 'edit') {
