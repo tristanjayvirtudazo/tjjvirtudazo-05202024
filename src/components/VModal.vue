@@ -5,14 +5,14 @@
 
 	const isOpen: Ref<boolean> = ref(false)
 	const taskStore = useTaskStore()
-	const { name, status, description } = storeToRefs(taskStore)
-	const props = defineProps<{ task?: Task }>()
+	const { id, name, status, description } = storeToRefs(taskStore)
+	const props = defineProps<{ task?: Task, action: string }>()
 
-	function handleEvents(): void {
-		if(props.task === undefined) {
-			taskStore.addTask()
+	function handleEvents(action: string): void {
+		if (action === 'edit') {
+			taskStore.updateTask(id.value)
 		} else {
-			taskStore.updateTask(id)
+			taskStore.addTask()
 		}
 	}
 
@@ -44,7 +44,7 @@
 					<option value="DONE">DONE</option>
 				</select>
 			</label>
-			<button @click="handleEvents">Save</button>
+			<button @click="handleEvents(action)">Save</button>
 			<button @click="handleCancel">Cancel</button>
 		</div>
 	</Teleport>
