@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 	const props = defineProps<{ task?: Task }>()
+	const emits = defineEmits(['start', 'complete'])
 </script>
 
 <template>
@@ -11,8 +12,8 @@
 		</div>
 		<div class="btn__group">
 			<button>Edit</button>
-			<button>Start task</button>
-			<button>Mark as complete</button>
+			<button @click="emits('start', task.id)">Start task</button>
+			<button @click="emits('complete', task.id)">Mark as complete</button>
 		</div>
 	</li>
 	<slot name="modal"/>
